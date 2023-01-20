@@ -5,6 +5,11 @@ const playerSchema = new mongoose.Schema({
   lName: { type: String, required: true },
   email: { type: String, required: true },
   phone: { type: String, required: true },
+  addressLine1: String,
+  addressLine2: String,
+  city: String,
+  state: String,
+  zip: String,
 });
 
 module.exports = mongoose.model("Player", playerSchema);

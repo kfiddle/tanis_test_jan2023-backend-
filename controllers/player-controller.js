@@ -3,12 +3,23 @@ const Inst = require("../models/inst");
 const HttpError = require("../utils/http-error");
 
 const createPlayer = async (req, res, next) => {
-  const { fName, lName, email, phone } = req.body;
 
-  const createdPlayer = new Player({ fName, lName, email, phone });
+  const createdPlayer = new Player({
+    fName: req.body.fName,
+    lName: req.body.lName,
+    email: req.body.email,
+    phone: req.body.phone,
+    addressLine1: req.body.addressLine1,
+    addressLine2: req.body.addressLine2,
+    city: req.body.city,
+    state: req.body.state,
+    zip: req.body.zip,
+  });
+  
   try {
     await createdPlayer.save();
   } catch (err) {
+    console.log(err);
     return next(new HttpError("could not create player", 500));
   }
 
@@ -76,7 +87,7 @@ const getPlayersBySort = async (req, res, next) => {
   let players;
   try {
     players = await Player.find();
-    console.log(players)
+    console.log(players);
     res.json({
       players: players.map((inst) => inst.toObject({ getters: true })),
     });
