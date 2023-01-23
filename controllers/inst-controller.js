@@ -4,6 +4,11 @@ const HttpError = require("../utils/http-error");
 const createInst = async (req, res, next) => {
   const { name } = req.body;
 
+  const previousInst = await Inst.findOne({ name });
+  if (previousInst) {
+    return next(new HttpError("instrument already exists", 422));
+  }
+
   const createdInst = new Inst({ name, players: [] });
   try {
     await createdInst.save();
@@ -20,7 +25,7 @@ const getInstById = (req, res, next) => {
   if (!place) throw new HttpError("there is no such place", 404);
 
   res.json({
-    message: "we good with ... " + placeId,
+    message: "we good with ... " + instId,
     place,
   });
 };
