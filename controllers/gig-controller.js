@@ -5,10 +5,10 @@ const Player = require("../models/player");
 const HttpError = require("../utils/http-error");
 
 const createGig = async (req, res, next) => {
-  const { title, partsList } = req.body;
+  const { venue, address, parts } = req.body;
   let partsToFill = [];
 
-  for (let instId of partsList) {
+  for (let instId of parts) {
     try {
       const inst = await Inst.findById(instId);
       partsToFill.push(inst);
@@ -20,9 +20,10 @@ const createGig = async (req, res, next) => {
   }
 
   const newGig = new Gig({
-    title,
+    venue,
+    address,
     parts: partsToFill.map((inst) => {
-      return { inst: inst.id, player: null };
+      return { inst, player: null };
     }),
   });
 

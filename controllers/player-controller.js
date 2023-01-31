@@ -17,7 +17,6 @@ const createPlayer = async (req, res, next) => {
 
   try {
     await createdPlayer.save();
-    // console.log(createdPlayer);
   } catch (err) {
     return next(new HttpError("could not create player", 500));
   }

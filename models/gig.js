@@ -1,15 +1,19 @@
 const mongoose = require("mongoose");
 
 const gigSchema = new mongoose.Schema({
-  title: String,
+  venue: { type: String, required: true },
   address: String,
   coordinates: {
     lat: String,
     lng: String,
   },
   date: Date,
-  start: String,
-  end: String,
+  startHours: String,
+  startMin: String,
+  endHours: String,
+  endMin: String,
+  contactPhone: String,
+  contactEmail: String,
   notes: String,
   indoor: Boolean,
   parts: [
