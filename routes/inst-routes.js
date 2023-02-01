@@ -7,7 +7,7 @@ router.get('/', instController.getAllInsts)
 
 router.post('/', instController.createInst)
 
-// router.get("/:pid", placesController.getPlaceById);
+router.get("/:iid", instController.getInstById);
 
 // router.get("/user/:uid", placesController.getPlacesByUserId);
 

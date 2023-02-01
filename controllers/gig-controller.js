@@ -1,3 +1,4 @@
+const { populate } = require("../models/gig");
 const Gig = require("../models/gig");
 const Inst = require("../models/inst");
 const Player = require("../models/player");
@@ -14,13 +15,16 @@ const createGig = async (req, res, next) => {
     startMin,
     endHours,
     endMin,
+    contactEmail,
+    contactPhone,
+    notes,
   } = req.body;
   let partsToFill = [];
 
   for (let instId of parts) {
     try {
       const inst = await Inst.findById(instId);
-      partsToFill.push(inst);
+      partsToFill.push({ inst, instName: inst.name, player: null });
     } catch (error) {
       return next(
         new HttpError("could not locate instrument of id  " + instId, 404)
@@ -36,10 +40,10 @@ const createGig = async (req, res, next) => {
     startMin,
     endHours,
     endMin,
-
-    parts: partsToFill.map((inst) => {
-      return { inst, player: null };
-    }),
+    contactEmail,
+    contactPhone,
+    notes,
+    parts: partsToFill,
   });
 
   try {
@@ -60,8 +64,9 @@ const getAllGigs = async (req, res, next) => {
   let gigs;
   try {
     gigs = await Gig.find();
+
     res.json({
-      gigs: gigs.map((inst) => inst.toObject({ getters: true })),
+      gigs: gigs.map((gig) => gig.toObject({ getters: true })),
     });
   } catch (err) {
     return next(new HttpError("could not get all gigs", 404));

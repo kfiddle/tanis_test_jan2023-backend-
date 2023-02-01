@@ -1,3 +1,4 @@
+const inst = require("../models/inst");
 const Inst = require("../models/inst");
 const HttpError = require("../utils/http-error");
 
@@ -19,15 +20,17 @@ const createInst = async (req, res, next) => {
   res.status(201).json({ instrument: createdInst.toObject({ getters: true }) });
 };
 
-const getInstById = (req, res, next) => {
-  const instId = req.params.pid;
-  const place = dummyPlaces.find((p) => p.id === placeId);
-  if (!place) throw new HttpError("there is no such place", 404);
+const getInstById = async (req, res, next) => {
+  const instId = req.params.iid;
 
-  res.json({
-    message: "we good with ... " + instId,
-    place,
-  });
+  let inst;
+  try {
+    inst = await Inst.findById(instId);
+  } catch (err) {
+    return next(new HttpError("cannot find this instrument"), 404);
+  }
+
+  res.json({ inst: inst.toObject({ getters: true }) });
 };
 
 const getAllInsts = async (req, res, next) => {

@@ -19,7 +19,8 @@ const gigSchema = new mongoose.Schema({
   parts: [
     {
       inst: { type: mongoose.Types.ObjectId, ref: "Inst" },
-      player: { type: mongoose.Types.ObjectId, ref: "Inst" },
+      instName: String,
+      player: { type: mongoose.Types.ObjectId, ref: "Player" },
     },
   ],
 });
