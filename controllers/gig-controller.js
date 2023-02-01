@@ -25,7 +25,7 @@ const createGig = async (req, res, next) => {
   for (let instId of parts) {
     try {
       const inst = await Inst.findById(instId);
-      partsToFill.push({ inst, instName: inst.name, player: null });
+      partsToFill.push({ inst, player: null });
     } catch (error) {
       return next(
         new HttpError("could not locate instrument of id  " + instId, 404)
