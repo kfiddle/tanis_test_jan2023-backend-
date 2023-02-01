@@ -33,17 +33,6 @@ const createGig = async (req, res, next) => {
     }
   }
 
-  // for (let instId of parts) {
-  //   try {
-  //     const inst = await Inst.findById(instId);
-  //     const part = new part({})
-  //   } catch (error) {
-  //     return next(
-  //       new HttpError("could not locate instrument of id  " + instId, 404)
-  //     );
-  //   }
-  // }
-
   const newGig = new Gig({
     venue,
     address,
