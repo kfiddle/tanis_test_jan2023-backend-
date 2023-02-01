@@ -1,4 +1,4 @@
-const inst = require("../models/inst");
+// const inst = require("../models/inst");
 const Inst = require("../models/inst");
 const HttpError = require("../utils/http-error");
 

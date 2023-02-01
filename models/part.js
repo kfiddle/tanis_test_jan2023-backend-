@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const partSchema = new mongoose.Schema({
+  gig: { type: mongoose.Types.ObjectId, required: true, ref: "Gig" },
   inst: { type: mongoose.Types.ObjectId, required: true, ref: "Inst" },
-  // gig: { type: mongoose.Types.ObjectId, required: true, ref: "Gig" },
   player: { type: mongoose.Types.ObjectId, ref: "Player" },
 });
 

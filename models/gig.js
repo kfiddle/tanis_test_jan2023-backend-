@@ -18,7 +18,7 @@ const gigSchema = new mongoose.Schema({
   indoor: Boolean,
   parts: [
     {
-      inst: { type: mongoose.Types.ObjectId, ref: "Inst" },
+      inst: { type: mongoose.Types.ObjectId, ref: "Instrument" },
       instName: String,
       player: { type: mongoose.Types.ObjectId, ref: "Player" },
     },
