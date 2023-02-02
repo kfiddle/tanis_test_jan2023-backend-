@@ -10,7 +10,7 @@ const createGig = async (req, res, next) => {
   const {
     venue,
     address,
-    parts,
+    instIds,
     date,
     startHours,
     startMin,
@@ -23,10 +23,10 @@ const createGig = async (req, res, next) => {
 
   let partsToFill = [];
 
-  for (let instId of parts) {
+  for (let instId of instIds) {
     try {
       const inst = await Inst.findById(instId);
-      partsToFill.push({ inst, player: null });
+      partsToFill.push({ instId, instName: inst.name, player: null });
     } catch (error) {
       return next(
         new HttpError("could not locate instrument of id  " + instId, 404)
@@ -50,6 +50,7 @@ const createGig = async (req, res, next) => {
 
   try {
     await newGig.save();
+    console.log(newGig);
   } catch (error) {
     console.log(error);
     return next(new HttpError("could not create new gig", 500));

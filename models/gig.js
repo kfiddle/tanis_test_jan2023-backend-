@@ -16,10 +16,12 @@ const gigSchema = new mongoose.Schema({
   contactEmail: String,
   notes: String,
   indoor: Boolean,
+  // parts: [{ type: mongoose.Types.ObjectId, ref: "Part" }],
+
   parts: [
     {
-      inst: { type: mongoose.Types.ObjectId, ref: "Inst" },
-      instName: String,
+      instId: { type: mongoose.Types.ObjectId, ref: "Inst" },
+      instName: { type: String, required: true },
       player: { type: mongoose.Types.ObjectId, ref: "Player" },
     },
   ],
