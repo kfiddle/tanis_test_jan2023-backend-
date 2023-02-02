@@ -20,6 +20,7 @@ const createGig = async (req, res, next) => {
     contactPhone,
     notes,
   } = req.body;
+
   let partsToFill = [];
 
   for (let instId of parts) {
