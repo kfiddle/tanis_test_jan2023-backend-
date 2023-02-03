@@ -74,6 +74,7 @@ const getAllPlayers = async (req, res, next) => {
   }
 };
 
+
 const addInstsForPlayer = async (req, res, next) => {
   const playerId = req.params.pid;
   const { instsList } = req.body;

@@ -26,7 +26,7 @@ const createGig = async (req, res, next) => {
   for (let instId of instIds) {
     try {
       const inst = await Inst.findById(instId);
-      partsToFill.push({ instId, instName: inst.name, player: null });
+      partsToFill.push({ inst, player: null });
     } catch (error) {
       return next(
         new HttpError("could not locate instrument of id  " + instId, 404)
@@ -66,7 +66,10 @@ const getGigById = (req, res, next) => {
 const getAllGigs = async (req, res, next) => {
   let gigs;
   try {
-    gigs = await Gig.find();
+    gigs = await Gig.find().populate({
+      path: "parts",
+      populate: { path: "inst" },
+    });
 
     res.json({
       gigs: gigs.map((gig) => gig.toObject({ getters: true })),

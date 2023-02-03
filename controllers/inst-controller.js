@@ -25,7 +25,7 @@ const getInstById = async (req, res, next) => {
 
   let inst;
   try {
-    inst = await Inst.findById(instId);
+    inst = await Inst.findById(instId).populate('players');
   } catch (err) {
     return next(new HttpError("cannot find this instrument"), 404);
   }
@@ -41,6 +41,24 @@ const getAllInsts = async (req, res, next) => {
   } catch (err) {
     return next(new HttpError("could not get all instruments", 404));
   }
+};
+
+const getPlayersOfInst = async (req, res, next) => {
+  let instId = req.params.iid;
+  let players;
+  let inst;
+  try {
+    inst = Inst.findById(instId);
+    players = inst.players;
+  } catch (err) {
+    return next(new HttpError("could not find players of this inst"), 404);
+  }
+
+  res
+    .status(201)
+    .json({
+      players: players.map((player) => player.toObject({ getters: true })),
+    });
 };
 
 module.exports = { createInst, getInstById, getAllInsts };
