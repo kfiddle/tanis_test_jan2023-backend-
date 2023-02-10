@@ -11,6 +11,7 @@ const createGig = async (req, res, next) => {
     venue,
     address,
     instIds,
+    pay,
     date,
     startHours,
     startMin,
@@ -46,6 +47,7 @@ const createGig = async (req, res, next) => {
     contactPhone,
     notes,
     parts: partsToFill,
+    pay,
   });
 
   try {

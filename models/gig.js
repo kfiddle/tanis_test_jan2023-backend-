@@ -16,7 +16,6 @@ const gigSchema = new mongoose.Schema({
   contactEmail: String,
   notes: String,
   indoor: Boolean,
-  // parts: [{ type: mongoose.Types.ObjectId, ref: "Part" }],
 
   parts: [
     {
@@ -24,6 +23,7 @@ const gigSchema = new mongoose.Schema({
       player: { type: mongoose.Types.ObjectId, ref: "Player" },
     },
   ],
+  pay: String,
 });
 
 gigSchema.methods.hasPlayer = function (playerId) {
