@@ -83,6 +83,7 @@ const getAllGigs = async (req, res, next) => {
 
 const assignPlayerToPart = async (req, res, next) => {
   const gigId = req.params.gid;
+  const partId = req.params.pid;
   const { playerId } = req.body;
   let gig;
   let player;
@@ -95,16 +96,22 @@ const assignPlayerToPart = async (req, res, next) => {
 
   try {
     gig = await Gig.findById(gigId);
+    for (let part of gig.parts) {
+     
+      if (part.id === partId) {
+        part.player = player;
+      }
+    }
   } catch (error) {
     return next(new HttpError("could not find gig", 404));
   }
 
-  if (!gig.hasPlayer(player)) {
-    for (let part of gig.parts) {
-      const inst = await Inst.findById(part.inst);
-      if (inst.players.includes(playerId)) part.player = playerId;
-    }
-  }
+  // if (!gig.hasPlayer(player)) {
+  //   for (let part of gig.parts) {
+  //     const inst = await Inst.findById(part.inst);
+  //     if (inst.players.includes(playerId)) part.player = playerId;
+  //   }
+  // }
 
   try {
     await gig.save();

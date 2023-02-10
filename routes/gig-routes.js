@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/", gigController.getAllGigs);
 router.post("/", gigController.createGig);
 
-router.patch("/assign-player/:gid", gigController.assignPlayerToPart);
+router.post("/assign-player/:gid/:pid", gigController.assignPlayerToPart);
 
 // router.get("/:pid", placesController.getPlaceById);
 
